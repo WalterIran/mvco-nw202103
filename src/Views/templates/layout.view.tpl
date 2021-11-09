@@ -6,6 +6,7 @@
   <title>{{SITE_TITLE}}</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/{{BASE_DIR}}/public/css/appstyle.css" />
   <script src="https://kit.fontawesome.com/{{FONT_AWESOME_KIT}}.js" crossorigin="anonymous"></script>
   {{foreach SiteLinks}}
@@ -28,7 +29,7 @@
       <ul>
         <li><a href="index.php?page=index"><i class="fas fa-home"></i>&nbsp;Inicio</a></li>
         <li><a href="index.php?page=sec_login"><i class="fas fa-sign-in-alt"></i>&nbsp;Iniciar Sesión</a></li>
-        <li><a href="index.php?page=sec_register"><i class="fas fa-user-plus"></i>&nbsp;Crear Cuenta</a></li>
+        <!-- <li><a href="index.php?page=sec_register"><i class="fas fa-user-plus"></i>&nbsp;Crear Cuenta</a></li> -->
       </ul>
     </nav>
   </header>

@@ -10,7 +10,7 @@
       <th>Estado</th>
       <th>
         {{if CanInsert}}
-        <a href="index.php?page=mnt_usuario&mode=INS&id=0">Nuevo</a>
+        <a href="index.php?page=mnt_usuario&mode=INS&usercod=0">Nuevo</a>
         {{endif CanInsert}}
       </th>
       </tr>
@@ -21,7 +21,7 @@
         <td>{{usercod}}</td>
         <td>
           {{if ~CanView}}
-          <a href="index.php?page=mnt_usuario&mode=DSO&id={{usercod}}">{{useremail}}</a>
+          <a href="index.php?page=mnt_usuario&mode=DSP&usercod={{usercod}}">{{useremail}}</a>
           {{endif ~CanView}}
 
           {{ifnot ~CanView}}
@@ -31,16 +31,16 @@
         <td>{{userest}}</td>
         <td>
           {{if ~CanUpdate}}
-          <a href="index.php?page=mnt_usuario&mode=UPD&id={{usercod}}"
+          <a href="index.php?page=mnt_usuario&mode=UPD&usercod={{usercod}}"
             class="btn depth-1 w48" title="Editar">
-            <i class="fas fa-edit"></i>
+            <i class="bi bi-pencil"></i>
           </a>
           {{endif ~CanUpdate}}
           &nbsp;
           {{if ~CanDelete}}
-          <a href="index.php?page=mnt_usuario&mode=DEL&id={{usercod}}"
+          <a href="index.php?page=mnt_usuario&mode=DEL&usercod={{usercod}}"
             class="btn depth-1 w48" title="Eliminar">
-            <i class="fas fa-trash-alt"></i>
+            <i class="bi bi-person-x"></i>
           </a>
           {{endif ~CanDelete}}
         </td>

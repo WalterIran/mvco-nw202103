@@ -13,7 +13,7 @@ class Usuarios extends PrivateController{
         $viewData["CanUpdate"] = self::isFeatureAutorized("Controllers\Mnt\Usuario\Upd");
         $viewData["CanDelete"] = self::isFeatureAutorized("Controllers\Mnt\Usuario\Del");
         $viewData["CanView"] = self::isFeatureAutorized("Controllers\Mnt\Usuario\Dsp");
-
+        
         \Views\Renderer::render("mnt/usuarios", $viewData);
     }
 }

@@ -47,8 +47,16 @@ class Security extends \Dao\Table
         return self::obtenerRegistros($sqlstr, array());
     }
 
-    static public function newUsuario($email, $password)
+    static public function newUsuario(
+        $email, 
+        $password, 
+        $username = "John Doe", 
+        $userpswdest = Estados::ACTIVO,
+        $userest = Estados::ACTIVO,
+        $usertipo = UsuarioTipo::PUBLICO
+        )
     {
+
         if (!\Utilities\Validators::IsValidEmail($email)) {
             throw new Exception("Correo no es válido");
         }
@@ -65,13 +73,13 @@ class Security extends \Dao\Table
         unset($newUser["userpswdchg"]);
 
         $newUser["useremail"] = $email;
-        $newUser["username"] = "John Doe";
+        $newUser["username"] = $username;
         $newUser["userpswd"] = $hashedPassword;
-        $newUser["userpswdest"] = Estados::ACTIVO;
+        $newUser["userpswdest"] = $userpswdest;
         $newUser["userpswdexp"] = date('Y-m-d', time() + 7776000);  //(3*30*24*60*60) (m d h mi s)
-        $newUser["userest"] = Estados::ACTIVO;
+        $newUser["userest"] = $userest;
         $newUser["useractcod"] = hash("sha256", $email.time());
-        $newUser["usertipo"] = UsuarioTipo::PUBLICO;
+        $newUser["usertipo"] = $usertipo;
 
         $sqlIns = "INSERT INTO `usuario` (`useremail`, `username`, `userpswd`,
             `userfching`, `userpswdest`, `userpswdexp`, `userest`, `useractcod`,

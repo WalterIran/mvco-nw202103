@@ -1,4 +1,4 @@
-<h1>Gestión de Categorías</h1>
+<h1>Gestión de partituras</h1>
 <section class="WWFilter">
 
 </section>
@@ -7,7 +7,13 @@
     <thead>
       <tr>
         <th>Código</th>
-        <th>Categoría</th>
+        <th>Descripción</th>
+        <th>Autor</th>
+        <th>Género</th>
+        <th>Año</th>
+        <th>Ventas</th>
+        <th>Precio</th>
+        <th>Doc URL</th>
         <th>Estado</th>
         <th>
           {{if new_enabled}}
@@ -19,23 +25,29 @@
     <tbody>
       {{foreach items}}
       <tr>
-        <td>{{catid}}</td>
-        <td><a href="index.php?page=mnt_categoria&mode=DSP&catid={{catid}}">{{catnom}}</a></td>
-        <td>{{catest}}</td>
+        <td>{{scoreid}}</td>
+        <td><a href="index.php?page=mnt_score&mode=DSP&scoreid={{scoreid}}">{{scoredsc}}</a></td>
+        <td>{{scoreauthor}}</td>
+        <td>{{scoregenre}}</td>
+        <td>{{scoreyear}}</td>
+        <td>{{scoresales}}</td>
+        <td>{{scoreprice}}</td>
+        <td><a href="{{scoredocurl}}">Link</a></td>
+        <td>{{scoreest}}</td>
         <td>
           {{if ~edit_enabled}}
           <form action="index.php" method="get">
-             <input type="hidden" name="page" value="mnt_categoria"/>
+             <input type="hidden" name="page" value="mnt_score"/>
               <input type="hidden" name="mode" value="UPD" />
-              <input type="hidden" name="catid" value={{catid}} />
+              <input type="hidden" name="scoreid" value={{scoreid}} />
               <button type="submit">Editar</button>
           </form>
           {{endif ~edit_enabled}}
           {{if ~delete_enabled}}
           <form action="index.php" method="get">
-             <input type="hidden" name="page" value="mnt_categoria"/>
+             <input type="hidden" name="page" value="mnt_score"/>
               <input type="hidden" name="mode" value="DEL" />
-              <input type="hidden" name="catid" value={{catid}} />
+              <input type="hidden" name="scoreid" value={{scoreid}} />
               <button type="submit">Eliminar</button>
           </form>
           {{endif ~delete_enabled}}
@@ -50,7 +62,7 @@
       document.getElementById("btnAdd").addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        window.location.assign("index.php?page=mnt_categoria&mode=INS&catid=0");
+        window.location.assign("index.php?page=mnt_score&mode=INS&scoreid=0");
       });
     });
 </script>
