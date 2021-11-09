@@ -38,6 +38,7 @@ class Usuario extends PublicController{
             'userest' => '',
             'useractcod' => '',
             'userpswdchg' => '',
+            'userpswdrpt' => '',
             'usertipo' => '',
             "hasErrors" => false,
             "Errors" => array(),
@@ -46,63 +47,70 @@ class Usuario extends PublicController{
         );
 
         if ($this->isPostBack()){
-            $viewData["mode"] = $_POST["mode"];
-            $viewData['usercod'] = $_POST['usercod'] ;
-            $viewData['useremail'] = $_POST['useremail'] ;
-            $viewData['username'] = $_POST['username'] ;
-            if(isset($_POST["chgPswd"])){
-                $viewData['userpswd'] = $_POST['userpswd'] ;
+            $viewData["mode"] = $_POST["mode"]; //Form behavior mode
+            $viewData['usercod'] = $_POST['usercod'] ; //User code
+            $viewData['useremail'] = $_POST['useremail'] ; //User Email
+            $viewData['username'] = $_POST['username'] ; //User Name
+            $viewData['userpswd'] = $_POST['userpswd'] ; //User password
+            $viewData['userpswdexp'] = $_POST['userpswdexp'] ; //User password expire
+            $viewData['userest'] = $_POST['userest'] ; //User Status (ACT, INA,...)
+            $viewData['usertipo'] = $_POST['usertipo'] ; //User type (PBL, ADM, AUDS)
+            $viewData["userpswdest"] = $_POST['userpswdest'] ; //User password status
+            $viewData["userpswdchg"] = date('Y-m-d H:i:s'); //User password change datetime
+            $viewData["userroles"] = explode(',',$_POST["userAssignRoles"]); //User assigned roles
+            $viewData["userpswdrpt"] = $_POST["userpswdrpt"]; //User password repeat
+
+            if($viewData["userpswdrpt"] != $viewData["userpswd"]){
+                $viewData["hasErrors"] = true;
+                $viewData["Errors"][] = "Contraseña y repetir contraseña deben ser iguales";
             }
-            $viewData['userpswdexp'] = $_POST['userpswdexp'] ;
-            $viewData['userest'] = $_POST['userest'] ;
-            $viewData['usertipo'] = $_POST['usertipo'] ;
-            $viewData["userpswdest"] = $_POST['userpswdest'] ;
-            $viewData["userpswdchg"] = date('Y-m-d H:i:s');
-            $viewData["userroles"] = explode(',',$_POST["userAssignRoles"]);
-            
-            switch($viewData["mode"]){
-                case "INS":
-                    if (\Dao\Security\Security::newUsuario($viewData['useremail'],$viewData['userpswd'],$viewData['username'],$viewData['userpswdexp'],$viewData["userpswdest"],$viewData['userest'],$viewData['usertipo']) ) 
-                    {
-                        $this->yeah();
-                    }
-                    break;
-                case "UPD":
-                    if (isset($_POST["chgPswd"]) && \Dao\Mnt\Usuarios::editUsuario(
-                        $viewData['usercod'],
-                        $viewData['useremail'],
-                        $viewData['username'],
-                        $viewData['userpswd'],
-                        $viewData["userpswdest"],
-                        $viewData['userpswdexp'],
-                        $viewData["userpswdchg"],
-                        $viewData['userest'],
-                        $viewData['usertipo']) 
-                    
-                        && \Dao\Mnt\Usuarios::editUserRoles($viewData['usercod'], $viewData["userroles"])
-                    ) 
-                    {
-                        $this->yeah();
-                    }else if(\Dao\Mnt\Usuarios::editUsuarioNoPswd(
-                        $viewData['usercod'],
-                        $viewData['useremail'],
-                        $viewData['username'],
-                        $viewData["userpswdest"],
-                        $viewData['userpswdexp'],
-                        $viewData['userest'],
-                        $viewData['usertipo'])
-                        && \Dao\Mnt\Usuarios::editUserRoles($viewData['usercod'], $viewData["userroles"])
-                    ) 
-                    {
-                        $this->yeah();
-                    }
-                    break;
-                case "DEL":
-                    if ( \Dao\Mnt\Usuarios::deleteUsuario($viewData['usercod']) ) 
-                    {
-                        $this->yeah();
-                    }
-                    break;
+
+            if(!$viewData["hasErrors"]){
+
+                switch($viewData["mode"]){
+                    case "INS":
+                        if (\Dao\Security\Security::newUsuario($viewData['useremail'],$viewData['userpswd'],$viewData['username'],$viewData['userpswdexp'],$viewData["userpswdest"],$viewData['userest'],$viewData['usertipo']) ) 
+                        {
+                            $this->yeah();
+                        }
+                        break;
+                    case "UPD":
+                        if (isset($_POST["chgPswd"]) && \Dao\Mnt\Usuarios::editUsuario(
+                            $viewData['usercod'],
+                            $viewData['useremail'],
+                            $viewData['username'],
+                            $viewData['userpswd'],
+                            $viewData["userpswdest"],
+                            $viewData['userpswdexp'],
+                            $viewData["userpswdchg"],
+                            $viewData['userest'],
+                            $viewData['usertipo']) 
+                        
+                            && \Dao\Mnt\Usuarios::editUserRoles($viewData['usercod'], $viewData["userroles"])
+                        ) 
+                        {
+                            $this->yeah();
+                        }else if(\Dao\Mnt\Usuarios::editUsuarioNoPswd(
+                            $viewData['usercod'],
+                            $viewData['useremail'],
+                            $viewData['username'],
+                            $viewData["userpswdest"],
+                            $viewData['userpswdexp'],
+                            $viewData['userest'],
+                            $viewData['usertipo'])
+                            && \Dao\Mnt\Usuarios::editUserRoles($viewData['usercod'], $viewData["userroles"])
+                        ) 
+                        {
+                            $this->yeah();
+                        }
+                        break;
+                    case "DEL":
+                        if ( \Dao\Mnt\Usuarios::deleteUsuario($viewData['usercod']) ) 
+                        {
+                            $this->yeah();
+                        }
+                        break;
+                }
             }
         } else {
             if (isset($_GET["mode"])){
@@ -147,6 +155,7 @@ class Usuario extends PublicController{
             $viewData['usertipo'] = $tmpUsuario['usertipo'];
             $viewData["userroles"] = $tmpUserRoles;
             $viewData["avaroles"] = $tmpAvailableRoles;
+            $viewData["chgpswd"] = false;
 
             $viewData["userest_ACT"] = $tmpUsuario["userest"] == "ACT" ? "selected" : "";
             $viewData["userest_INA"] = $tmpUsuario["userest"] == "INA" ? "selected" : "";
@@ -155,7 +164,7 @@ class Usuario extends PublicController{
             
             $viewData["usertipo_PBL"] = $tmpUsuario["usertipo"] == "PBL" ? "selected" : "";
             $viewData["usertipo_ADM"] = $tmpUsuario["usertipo"] == "ADM" ? "selected" : "";
-            $viewData["usertipo_AUDS"] = $tmpUsuario["usertipo"] == "AUDS" ? "selected" : "";
+            $viewData["usertipo_AUD"] = $tmpUsuario["usertipo"] == "AUD" ? "selected" : "";
             
             $viewData["mode_dsc"] = sprintf(
                 $modeDscArr[$viewData["mode"]],

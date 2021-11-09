@@ -22,8 +22,8 @@
         <input type="datetime-local" {{readonly}} name='userfching' value="{{userfching}}"/>
     </section>
     {{endif readonly}}
-    {{ifnot readonly}}
-    {{ifnot chgpswd}}
+    {{ifnot readonly}}<!-- If not DSP mode then show -->
+    {{ifnot chgpswd}} <!-- If INS mode hide change password checkbox | Always show password and repeat password -->
     <section class="form-check">
       <input class="form-check-input" type="checkbox" id="chgPswd" name="chgPswd">
       <label class="form-check-label" for="chgPswd">
@@ -78,7 +78,7 @@
         <select name="usertipo" id="usertipo" {{if readonly}}disabled{{endif readonly}} >
           <option value="PBL" {{usertipo_PBL}}>Público</option>
           <option value="ADM" {{usertipo_ADM}}>Administrador</option>
-          <option value="AUD" {{usertipo_AUDS}}>Auditor</option>
+          <option value="AUD" {{usertipo_AUD}}>Auditor</option>
         </select>
     </section >
     {{if readonly}}
