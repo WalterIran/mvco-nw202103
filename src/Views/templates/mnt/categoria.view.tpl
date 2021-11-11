@@ -5,6 +5,8 @@
     <section>
     <label for="catid">Código</label>
     <input type="hidden" id="catid" name="catid" value="{{catid}}"/>
+    <input type="hidden" id="mode" name="mode" value="{{mode}}"/>
+    <input type="hidden" id="xsrftoken" name="xsrftoken" value="{{xsrftoken}}"/>
     <input type="text" readonly name="catiddummy" value="{{catid}}"/>
     </section>
     <section>
@@ -13,6 +15,9 @@
     </section>
     <section>
       <label for="catest">Estado</label>
+      {{if readonly}}
+      <input type ="hidden" id="catestdum" name="catest" value=""/>
+      {{endif readonly}}
       <select id="catest" name="catest" {{if readonly}}disabled{{endif readonly}}>
         <option value="ACT" {{catest_ACT}}>Activo</option>
         <option value="INA" {{catest_INA}}>Inactivo</option>
@@ -22,9 +27,9 @@
     {{if hasErrors}}
         <section>
           <ul>
-            {{foreach aErrors}}
+            {{foreach Errors}}
                 <li>{{this}}</li>
-            {{endfor aErrors}}
+            {{endfor Errors}}
           </ul>
         </section>
     {{endif hasErrors}}

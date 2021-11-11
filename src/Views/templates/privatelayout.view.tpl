@@ -8,29 +8,39 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/{{BASE_DIR}}/public/css/appstyle.css" />
+  <script src="https://kit.fontawesome.com/{{FONT_AWESOME_KIT}}.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+  <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   {{foreach SiteLinks}}
-  <link rel="stylesheet" href="{{this}}" />
+  <link rel="stylesheet" href="/{{~BASE_DIR}}/{{this}}" />
   {{endfor SiteLinks}}
   {{foreach BeginScripts}}
-  <script src="{{this}}"></script>
+  <script src="/{{~BASE_DIR}}/{{this}}"></script>
   {{endfor BeginScripts}}
 </head>
 
 <body>
   <header>
+    <input type="checkbox" class="menu_toggle" id="menu_toggle" />
+    <label for="menu_toggle" class="menu_toggle_icon">
+      <div class="hmb dgn pt-1"></div>
+      <div class="hmb hrz"></div>
+      <div class="hmb dgn pt-2"></div>
+    </label>
     <h1>{{SITE_TITLE}}</h1>
-    <nav>
+    <nav id="menu">
       <ul>
-        {{with login}}
-          <li><span>{{userName}}</span></li>
-        {{endwith login}}
-        <li><a href="index.php?page=admin_admin">Inicio</a></li>
+        <li><a href="index.php?page=admin_admin"><i class="fas fa-home"></i>&nbsp;Inicio</a></li>
         {{foreach NAVIGATION}}
             <li><a href="{{nav_url}}">{{nav_label}}</a></li>
         {{endfor NAVIGATION}}
-        <li><a href="index.php?page=sec_logout">Salir</a></li>
+        <li><a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i>&nbsp;Salir</a></li>
       </ul>
     </nav>
+    {{with login}}
+    <span class="username">{{userName}} <a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i></a></span>
+    {{endwith login}}
   </header>
   <main>
     {{{page_content}}}
@@ -39,7 +49,7 @@
     <div>Todo los Derechos Reservados 2021 &copy;</div>
   </footer>
   {{foreach EndScripts}}
-  <script src="{{this}}"></script>
+  <script src="/{{~BASE_DIR}}/{{this}}"></script>
   {{endfor EndScripts}}
 </body>
 </html>
