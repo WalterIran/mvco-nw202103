@@ -14,9 +14,8 @@
     method="POST" >
     <section class="my-2">
     <label class="me-2" for="rolescod">Código del Rol</label>
-    <input type="hidden" id="rolescod" name="rolescod" value="{{rolescod}}"/>
+    <input type="text" {{readonly}} {{ifnot isINS}}readonly{{endifnot isINS}} id="rolescod" name="rolescod" value="{{rolescod}}"/>
     <input type="hidden" id="mode" name="mode" value="{{mode}}"/>
-    <input type="text" {{readonly}} {{ifnot isINS}}readonly{{endifnot isINS}} name="rolescoddummy" value="{{rolescod}}"/>
     </section>
     <section class="my-2">
       <label class="me-2" for="rolesdsc">Descripción del Rol</label>

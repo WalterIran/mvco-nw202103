@@ -1,12 +1,21 @@
 <h1>{{mode_dsc}}</h1>
 <section>
+{{if isDEL}}
+  <div class="alert alert-warning d-flex align-items-center" role="alert">
+    <div>
+      <i class="bi bi-exclamation-triangle"></i>
+      ¡Advertencia!
+      <br>
+      Está a punto de eliminar una función de que podría estar ligado un rol que a su vez a un usuario
+    </div>
+  </div>
+  {{endif isDEL}}
   <form action="index.php?page=mnt_feature&mode={{mode}}&fncod={{fncod}}"
     method="POST" >
     <section class="my-2">
     <label class="me-2" for="fncod">Código de Funcion</label>
-    <input type="hidden" id="fncod" name="fncod" value="{{fncod}}"/>
+    <input type="text" {{readonly}} {{ifnot isINS}}readonly{{endifnot isINS}} id="fncod" name="fncod" value="{{fncod}}"/>
     <input type="hidden" id="mode" name="mode" value="{{mode}}"/>
-    <input type="text" {{readonly}} {{ifnot isINS}}readonly{{endifnot isINS}} name="funcoddummy" value="{{fncod}}"/>
     </section>
     <section class="my-2">
       <label class="me-2" for="fndsc">Descripción de la Funcion</label>

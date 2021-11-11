@@ -31,7 +31,7 @@ class Feature extends PublicController{
             "showaction"=>true,
             "readonly"=>false,
             "isINS" => false,
-            
+            "isDEL" => false,
         );
 
         $modeDscArr = array(
@@ -150,7 +150,7 @@ class Feature extends PublicController{
             }
 
             if($viewData["mode"]=="DEL"){
-                
+                $viewData["isDEL"] = true;
                 $viewData["readonly"]="readonly";
             }
 

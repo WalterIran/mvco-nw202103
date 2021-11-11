@@ -80,7 +80,9 @@ class Roles extends Table{
 
     //D-delete
     public static function deleteRol($rolescod){
-        $sqlStr = "DELETE FROM roles_usuarios WHERE rolescod = :rolescod; DELETE FROM roles WHERE rolescod = :rolescod;";
+        $sqlStr = "DELETE FROM roles_usuarios WHERE rolescod = :rolescod; 
+        DELETE FROM funciones_roles WHERE rolescod = :rolescod; 
+        DELETE FROM roles WHERE rolescod = :rolescod;";
         $parametros = array(
             "rolescod"=> $rolescod
         );
